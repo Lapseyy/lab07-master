@@ -8,7 +8,7 @@ class Contacts:
         
         try:
             with open(self.filename, 'r') as file:
-                self.data = json.loads(file)
+                self.data = json.load(file)
         except FileNotFoundError:
             self.data = {}
     
@@ -17,7 +17,8 @@ class Contacts:
         if id in self.data:
             return "error"
         self.data[id] = [first_name, last_name]
-        self.data[id] = dict(sorted(self.data.ietms(), key=lambda item: (item[1][1].lower(), item[1][0].lower())))
+        self.data[id] = dict(sorted(self.data.items(), key=lambda item: (item[1][1].lower(), item[1][0].lower())))
+
         self.write_to_file()
         return {id: [first_name, last_name]}
     
@@ -37,6 +38,7 @@ class Contacts:
         self.write_to_file()
         return {id: remove}
     
+    # Fucntion to write to the file. 
     def write_to_file(self):
         with open(self.filename, 'w') as file:
             json.dump(self.data, file, indent= 4)

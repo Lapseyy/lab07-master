@@ -2,9 +2,10 @@ import contacts
 
 def main():
     # Initialize Contacts object with a default filename
-    # contact_list = contacts.Contacts("default_contacts.json")
-
+    contact_list = contacts.Contacts("default_contacts.json")
+    # contact_list = {}
     while True:
+       # contact_list = {}
         # Display the menu
         print("\nTuffy Titan Contact List Menu")
         print("1. Add contact")
