@@ -14,16 +14,24 @@ class Contacts:
     
     def add_contact(self, id, first_name, last_name):
         
-        if id in self.data:
-            return "error"
-        self.data[id] = [first_name, last_name]
-        self.data[id] = dict(sorted(self.data.items(), key=lambda item: (item[1][1].lower(), item[1][0].lower())))
-
+        
+        try:
+            if id in self.data:
+                return "error"
+            self.data[id] = [first_name, last_name]
+            # self.data[id] = dict(sorted(self.data.items(), key=lambda item: (item[1][1].lower(), item[1][0].lower())))
+        
+            self.data = dict(sorted(self.data.items(), key=lambda item: (item[1][1].lower(), item[1][0].lower())))
+        except IndexError as e:
+            print(f"Error: Incorrect contact format encountered - {e}")
+            return "error: contact format issue"
+        
         self.write_to_file()
+        
         return {id: [first_name, last_name]}
     
     def modify_contact(self, id, first_name, last_name):
-        if id in self.data:
+        if id not in self.data:
             return "error"
         self.data[id] =  [first_name, last_name]
         self.data = dict(sorted(self.data.items(), key=lambda item: (item[1][1].lower(), item[1][0].lower())))
@@ -32,7 +40,7 @@ class Contacts:
     
     
     def delete_contact(self, id):
-        if id in self.data:
+        if id not in self.data:
             return "error"
         remove = self.data.pop(id)
         self.write_to_file()

@@ -50,9 +50,19 @@ def main():
             if not contact_list.data:
                 print("No contacts available.")
             else:
-                print("Contact List:")
-                for id, (first_name, last_name) in contact_list.data.items():
-                    print(f"ID: {id}, First Name: {first_name}, Last Name: {last_name}")
+                # Print header
+                print("     ==================== CONTACT LIST ====================")
+                print("     Last Name             First Name            Phone")
+                print("     ====================  ====================  ============")
+
+                # Print each contact, formatted
+                for id, contact in contact_list.data.items():
+                    if len(contact) == 2:
+                        first_name, last_name = contact
+                        print(f"     {last_name:<20}  {first_name:<20}  {id:<10}")
+                    else:
+                        print(f"ID: {id}, Invalid contact format")
+
 
         elif choice == '5':  # Set contact filename
             filename = input("Enter new filename (e.g., contacts.json): ")
